@@ -1,6 +1,8 @@
 package gorestful
 
 import (
+	"fmt"
+	"io/ioutil"
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -120,10 +122,71 @@ func TestGORestful_TRACE(t *testing.T) {
 }
 func TestGORestful_Run(t *testing.T) {
 	router := New()
-
 	router.GET("/foo", func(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(200)
 		w.Write([]byte("ok"))
 	})
-	//router.Run(":8080")
+	ts := httptest.NewServer(router)
+	defer ts.Close()
+	api := ts.URL
+	fmt.Println("api", api)
+	result, err := GetOk(api)
+	if err != nil {
+		t.Error(err)
+	}
+	if result != "ok" {
+		t.Errorf("Expect:ok, got:%s", result)
+	}
+
+}
+
+func TestGORestful_HandlerServeHTTP(t *testing.T) {
+	router := New()
+	got := "hello"
+	router.HandlerServeHTTP("GET", "/foo", func(w http.ResponseWriter, r *http.Request) {
+		w.WriteHeader(200)
+		w.Write([]byte(got))
+	})
+	ts := httptest.NewServer(router)
+	defer ts.Close()
+	api := ts.URL
+	fmt.Println("api", api)
+	result, err := GetOk(api)
+	if err != nil {
+		t.Error(err)
+	}
+	if result != got {
+		t.Errorf("Expect:%s, got:%s", got, result)
+	}
+}
+
+func TestGORestful_Run2(t *testing.T) {
+	SetMode(ModeDebug)
+	router := New()
+	router.GET("/foo", func(w http.ResponseWriter, r *http.Request) {
+	})
+	router.POST("/foo1", func(writer http.ResponseWriter, request *http.Request) {
+	})
+
+	http.ListenAndServe(":8080", router)
+}
+
+
+func GetOk(api string) (result string, err error) {
+	url := fmt.Sprintf("%s/foo", api)
+	resp, err := http.Get(url)
+	if err != nil {
+		return
+	}
+	defer resp.Body.Close()
+	if resp.StatusCode != http.StatusOK {
+		err = fmt.Errorf("http status code is not 200, status-code:%d", resp.StatusCode)
+		return
+	}
+	b, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		return
+	}
+	result = string(b)
+	return
 }

@@ -15,7 +15,7 @@ restful.GET("/", func(writer http.ResponseWriter, request *http.Request) {
     writer.WriteHeader(200)
     writer.Write([]byte("ok"))
 })
-restful.Run(":8080")
+http.ListenAndServe(":8080", r)
 ```
 
 # Feature
