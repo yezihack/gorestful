@@ -37,7 +37,7 @@ func TestGORestful_HEAD(t *testing.T) {
 func TestGORestful_POST(t *testing.T) {
 	router := New()
 	hit := false
-	router.HEAD("/foo", func(writer http.ResponseWriter, request *http.Request) {
+	router.POST("/foo", func(writer http.ResponseWriter, request *http.Request) {
 		hit = true
 		writer.WriteHeader(200)
 	})
@@ -51,7 +51,7 @@ func TestGORestful_POST(t *testing.T) {
 func TestGORestful_PUT(t *testing.T) {
 	router := New()
 	hit := false
-	router.HEAD("/foo", func(writer http.ResponseWriter, request *http.Request) {
+	router.PUT("/foo", func(writer http.ResponseWriter, request *http.Request) {
 		hit = true
 		writer.WriteHeader(200)
 	})
@@ -65,7 +65,7 @@ func TestGORestful_PUT(t *testing.T) {
 func TestGORestful_PATCH(t *testing.T) {
 	router := New()
 	hit := false
-	router.HEAD("/foo", func(writer http.ResponseWriter, request *http.Request) {
+	router.PATCH("/foo", func(writer http.ResponseWriter, request *http.Request) {
 		hit = true
 		writer.WriteHeader(200)
 	})
@@ -79,7 +79,7 @@ func TestGORestful_PATCH(t *testing.T) {
 func TestGORestful_DELETE(t *testing.T) {
 	router := New()
 	hit := false
-	router.HEAD("/foo", func(writer http.ResponseWriter, request *http.Request) {
+	router.DELETE("/foo", func(writer http.ResponseWriter, request *http.Request) {
 		hit = true
 		writer.WriteHeader(200)
 	})
@@ -93,7 +93,7 @@ func TestGORestful_DELETE(t *testing.T) {
 func TestGORestful_CONNECT(t *testing.T) {
 	router := New()
 	hit := false
-	router.HEAD("/foo", func(writer http.ResponseWriter, request *http.Request) {
+	router.CONNECT("/foo", func(writer http.ResponseWriter, request *http.Request) {
 		hit = true
 		writer.WriteHeader(200)
 	})
@@ -107,7 +107,7 @@ func TestGORestful_CONNECT(t *testing.T) {
 func TestGORestful_TRACE(t *testing.T) {
 	router := New()
 	hit := false
-	router.HEAD("/foo", func(writer http.ResponseWriter, request *http.Request) {
+	router.TRACE("/foo", func(writer http.ResponseWriter, request *http.Request) {
 		hit = true
 		writer.WriteHeader(200)
 	})
@@ -125,5 +125,5 @@ func TestGORestful_Run(t *testing.T) {
 		w.WriteHeader(200)
 		w.Write([]byte("ok"))
 	})
-	router.Run(":8080")
+	//router.Run(":8080")
 }

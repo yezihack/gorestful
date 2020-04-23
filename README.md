@@ -1,4 +1,5 @@
 [![](https://img.shields.io/badge/GoDoc-gorestful-orange)](https://godoc.org/github.com/yezihack/gorestful)
+[![Coverage Status](https://coveralls.io/repos/github/yezihack/gorestful/badge.svg)](https://coveralls.io/github/yezihack/gorestful)
 # gorestful
 Gorestful is golang simple web 
 
