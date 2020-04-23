@@ -4,7 +4,7 @@
 Gorestful is golang simple web 
 
 # Install 
-`go get github.com/yezihack/gorestful`
+`go get -u github.com/yezihack/gorestful`
 
 # How
 ```go

@@ -3,6 +3,7 @@ package gorestful
 import (
 	"fmt"
 	"io"
+	"net/http"
 	"os"
 	"reflect"
 	"runtime"
@@ -15,7 +16,7 @@ func SetMode(mode string) {
 	Mode = mode
 }
 
-func debugPrintMessage(httpMethod, absolutePath string, h Handle) {
+func debugPrintMessage(httpMethod, absolutePath string, h http.HandlerFunc) {
 	handlerName := nameOfFunction(h)
 	debugPrint("%-6s %-25s --> %s\n", httpMethod, absolutePath, handlerName)
 }
